@@ -22,7 +22,15 @@ const LinksDropdown = () => {
           <UserIcon />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent></DropdownMenuContent>
+      <DropdownMenuContent className='w-52' align='start' sideOffset={10}>
+        {links.map((link) => {
+          return (
+            <DropdownMenuItem key={link.href}>
+              <Link className='capitalize w-full' href={link.href} >{link.label}</Link>
+            </DropdownMenuItem>
+          )
+        })}
+      </DropdownMenuContent>
     </DropdownMenu>
   )
 }
