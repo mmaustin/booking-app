@@ -1,10 +1,9 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect} from "react"
 import { useFormState } from "react-dom"
 import { useToast } from "../ui/use-toast"
-import {actionFunction} from '@/utils/types'
-
+import {actionFunction } from "@/utils/types"
 
 const initialState = {
   message: "",
