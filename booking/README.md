@@ -844,7 +844,7 @@ Prisma ORM is a database toolkit that simplifies database access in web applicat
 - Prisma server: A standalone infrastructure component sitting on top of your database.
 - Prisma client: An auto-generated library that connects to the Prisma server and lets you read, write and stream data in your database. It is used for data access in your applications.
 
-```sh
+```sh 
 npm install prisma --save-dev
 npm install @prisma/client
 ```
