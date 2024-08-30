@@ -21,11 +21,15 @@ export const createProfileAction = async (prevState: any, formData: FormData) =>
         profileImage: user.imageUrl ?? '',
         ...validatedFields
       }
-    })
+    });
 
-    return { message: 'profile created' }
+    await clerkClient().users.updateUserMetadata(user.id, {
+      privateMetadata: {
+        hasProfile: true,
+      },
+    });
   } catch (error) {
-    console.log(error);
-    return { message: 'there was an error' };
+    return { message: error instanceof Error ? error.message : "There was an error, chief." };
   };
+  redirect('/');
 };
