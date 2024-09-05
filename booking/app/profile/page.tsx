@@ -23,3 +23,5 @@ const ProfilePage = async () => {
     </section>
   )
 };
+
+export default ProfilePage;

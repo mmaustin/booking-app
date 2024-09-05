@@ -7,12 +7,12 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 const getAuthUser = async () => {
-  const user =  await currentUser();
-  if(!user) {
+  const user = await currentUser();
+  if (!user) {
     throw new Error('You must login to access this route.');
   };
 
-  if(!user.privateMetadata.hasProfile) redirect('/profile/create');
+  if (!user.privateMetadata.hasProfile) redirect('/profile/create');
   return user;
 };
 
@@ -46,7 +46,7 @@ export const createProfileAction = async (prevState: any, formData: FormData) =>
 
 export const fetchProfileImage = async () => {
   const user = await currentUser();
-  if(!user) return null;
+  if (!user) return null;
 
   const profile = await db.profile.findUnique({
     where: {
@@ -76,5 +76,23 @@ export const updateProfileAction = async (
   prevState: any,
   formData: FormData
 ): Promise<{ message: string }> => {
-  return { message: 'update profile action' };
+  const user = await currentUser();
+
+  try {
+    const rawData = Object.fromEntries(formData);
+    const validatedFields = profileSchema.parse(rawData);
+
+    await db.profile.update({
+      where: {
+        clerkId: user?.id,
+      },
+      data: validatedFields,
+    });
+
+    revalidatePath('/profile');
+    return {message: 'Profile updated successfully'};
+
+  } catch (error) {
+return 
+  }
 };
