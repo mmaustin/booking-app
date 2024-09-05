@@ -16,6 +16,13 @@ const getAuthUser = async () => {
   return user;
 };
 
+const renderError = (error: unknown): { message: string } => {
+  console.log(error);
+  return {
+    message: error instanceof Error ? error.message : 'An error occurred',
+  };
+};
+
 export const createProfileAction = async (prevState: any, formData: FormData) => {
   try {
     const user = await currentUser();
