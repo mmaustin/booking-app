@@ -46,7 +46,7 @@ export const createProfileAction = async (prevState: any, formData: FormData) =>
       },
     });
   } catch (error) {
-    return { message: error instanceof Error ? error.message : "There was an error, chief." };
+    return renderError(error);
   };
   redirect('/');
 };
@@ -97,9 +97,9 @@ export const updateProfileAction = async (
     });
 
     revalidatePath('/profile');
-    return {message: 'Profile updated successfully'};
+    return { message: 'Profile updated successfully' };
 
   } catch (error) {
-return 
+    return renderError(error);
   }
 };
