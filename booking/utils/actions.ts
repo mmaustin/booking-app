@@ -17,7 +17,6 @@ const getAuthUser = async () => {
 };
 
 const renderError = (error: unknown): { message: string } => {
-  console.log(error);
   return {
     message: error instanceof Error ? error.message : 'An error occurred',
   };
@@ -83,17 +82,22 @@ export const updateProfileAction = async (
   prevState: any,
   formData: FormData
 ): Promise<{ message: string }> => {
-  const user = await currentUser();
+  const user = await getAuthUser();
 
   try {
     const rawData = Object.fromEntries(formData);
-    const validatedFields = profileSchema.parse(rawData);
+    const validatedFields = profileSchema.safeParse(rawData);
+
+    if(!validatedFields.success){
+      const errors = validatedFields.error.errors.map(error => error.message);
+        throw new Error(errors.join(' ,'));
+    }
 
     await db.profile.update({
       where: {
         clerkId: user?.id,
       },
-      data: validatedFields,
+      data: validatedFields.data,
     });
 
     revalidatePath('/profile');

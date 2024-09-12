@@ -17,7 +17,7 @@ const ProfilePage = async () => {
             <FormInput type="text" name="lastName" label="Last Name" defaultValue={user.lastName} />
             <FormInput type="text" name="username" label="Username" defaultValue={user.username} />
           </div>
-          <SubmitButton text="Create Profile" className="mt-8" />
+          <SubmitButton text="Update Profile" className="mt-8" />
         </FormContainer>
       </div>
     </section>
