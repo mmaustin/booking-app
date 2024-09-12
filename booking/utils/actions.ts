@@ -90,7 +90,7 @@ export const updateProfileAction = async (
 
     if(!validatedFields.success){
       const errors = validatedFields.error.errors.map(error => error.message);
-        throw new Error(errors.join(' ,'));
+        throw new Error(errors.join(' '));
     }
 
     await db.profile.update({
